@@ -10,10 +10,10 @@ const validateProduct = [
     .optional()
     .isString()
     .withMessage("Description must be a string"),
-  body("quantity")
-    .optional()
-    .isNumeric()
-    .withMessage("Quantity must be a number"),
+  // body("quantity")
+  //   .optional()
+  //   .isNumeric()
+  //   .withMessage("Quantity must be a number"),
   body("productCode")
     .optional()
     .isString()

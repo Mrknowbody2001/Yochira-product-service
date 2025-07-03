@@ -4,7 +4,7 @@ const generateProductCode = async (categoryId, subCategoryId) => {
   const datePart = new Date().toISOString().slice(0, 10).replace(/-/g, ""); // e.g. 20250621
 
   // Count how many products already exist today for this category + subCategory
-  const count = await FinishedProduct.countDocuments({
+  const count = await Product.countDocuments({
     category: categoryId,
     subCategory: subCategoryId,
     createdAt: {

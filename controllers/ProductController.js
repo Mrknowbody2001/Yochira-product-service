@@ -1,7 +1,7 @@
 import Product from "../model/Product.js";
 import generateBarcodeBuffer from "../utils/barcodeGenerator.js";
 import generateProductCode from "./generateProductCode.js";
-
+import getNextProductId from "../utils/getNextProductId.js";
 const CreateProduct = async (req, res, next) => {
   try {
     const {
@@ -11,22 +11,25 @@ const CreateProduct = async (req, res, next) => {
       unit,
       sellingPrice,
       description,
-      quantity,
     } = req.body;
 
-    // ✅ Generate productCode
+    // Generate custom productId (like 0001)
+    const customProductId = await getNextProductId();
+
+    //  Generate productCode with category subcategory
     const productCode = await generateProductCode(category, subCategory);
 
     const product = new Product({
+      productId: customProductId,
       productName,
       category,
       subCategory,
       unit,
       sellingPrice,
       description,
-      quantity,
+      // quantity,
       productCode,
-      productStatus: "manufacturing", // or whatever default
+      productStatus: "pending", // "pending", "approved"
     });
 
     await product.save();
@@ -51,7 +54,17 @@ const CreateProduct = async (req, res, next) => {
 };
 export default CreateProduct;
 
-// delete product
+//! get new product id
+export const getNewProductId = async (req, res, next) => {
+  try {
+    const newId = await getNextProductId();
+    res.status(200).json({ productId: newId });
+  } catch (error) {
+    next(error);
+  }
+};
+
+//! delete product
 
 export const deleteProduct = async (req, res, next) => {
   try {
@@ -69,7 +82,7 @@ export const deleteProduct = async (req, res, next) => {
   }
 };
 
-//get one product
+//!get one product
 
 export const getAllProduct = async (req, res, next) => {
   try {
@@ -82,7 +95,7 @@ export const getAllProduct = async (req, res, next) => {
     next(error);
   }
 };
-//get one product
+//!get one product
 
 export const getOneProduct = async (req, res, next) => {
   try {
@@ -103,7 +116,7 @@ export const getOneProduct = async (req, res, next) => {
   }
 };
 
-//update product 
+//!update product
 
 export const updateProduct = async (req, res, next) => {
   try {
@@ -128,5 +141,3 @@ export const updateProduct = async (req, res, next) => {
     next(error);
   }
 };
-
-

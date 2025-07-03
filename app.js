@@ -1,11 +1,14 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
 // import productRoutes from "./routes/ProductRoutes.js";
 import productRouter from "./routes/ProductRoutes.js";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
+app.use(cors({ origin: "http://localhost:5173" }));
 
 dotenv.config();
 
