@@ -23,6 +23,6 @@ productRouter.delete("/delete/:id", deleteProduct);
 productRouter.get("/", getAllProduct);
 
 // 2. Dynamic route LAST
-productRouter.get("/:id", getOneProduct); // This must be last!
+productRouter.get("/:id", getOneProduct); 
 
 export default productRouter;

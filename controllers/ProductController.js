@@ -82,7 +82,7 @@ export const deleteProduct = async (req, res, next) => {
   }
 };
 
-//!get one product
+//!get all product
 
 export const getAllProduct = async (req, res, next) => {
   try {
