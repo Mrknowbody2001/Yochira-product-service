@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     environment {
-        // Use PATH+EXTRA to append directories in declarative pipeline
-        PATH+DOCKER = "/usr/bin"
+        PATH = "/usr/bin:$PATH"   // prepend docker-compose path
     }
 
     stages {
@@ -17,7 +16,7 @@ pipeline {
         stage('Check PATH') {
             steps {
                 sh 'echo $PATH'
-                sh 'which docker-compose'  // Should now output: /usr/bin/docker-compose
+                sh 'which docker-compose'
             }
         }
 
