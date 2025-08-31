@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  product-service:
+    image: chamithsandeepa2001/productservice:latest # replace with your Docker Hub username
+    container_name: product-service
+    env_file:
+      - .env # pass your PORT and MONGO_URL
+    ports:
+      - "5001:5001" # maps host port 5001 to container port 5001
+    restart: unless-stopped
+    networks:
+      - app
+
+networks:
+  app:

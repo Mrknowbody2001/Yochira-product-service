@@ -1,10 +1,12 @@
 import Product from "../model/Product.js";
+import Counter from "../model/Counter.js";
 import generateBarcodeBuffer from "../utils/barcodeGenerator.js";
 import generateProductCode from "./generateProductCode.js";
 import getNextProductId from "../utils/getNextProductId.js";
 const CreateProduct = async (req, res, next) => {
   try {
     const {
+      productId,
       productName,
       category,
       subCategory,
@@ -43,6 +45,7 @@ const CreateProduct = async (req, res, next) => {
       message: "Product created successfully",
       product,
       barcode: barcodeBase64,
+      // productId,
     });
   } catch (error) {
     if (error.code === 11000) {
@@ -54,13 +57,31 @@ const CreateProduct = async (req, res, next) => {
 };
 export default CreateProduct;
 
-//! get new product id
-export const getNewProductId = async (req, res, next) => {
+// //! get new product id
+// export const getNewProductId = async (req, res, next) => {
+//   try {
+//     // const newId = await getNextProductId();
+//     res.status(200).json({ productId: newId });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
+export const getPreviewProductId = async (req, res, next) => {
   try {
-    const newId = await getNextProductId();
-    res.status(200).json({ productId: newId });
-  } catch (error) {
-    next(error);
+    const counter = await Counter.findOne({ name: "product" });
+
+    // If counter doesn't exist yet, assume 0
+    // const current = counter?.seq || 0;
+    const current = typeof counter?.seq === "number" ? counter.seq : 0;
+
+    // Just preview next without saving anything
+    const previewId = (current + 1).toString().padStart(4, "0");
+
+    res.status(200).json({ previewId });
+  } catch (err) {
+    console.error("Preview ID Error:", err);
+    res.status(500).json({ message: "Something went wrong" });
   }
 };
 

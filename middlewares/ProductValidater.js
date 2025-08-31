@@ -1,6 +1,7 @@
 import { body, validationResult } from "express-validator";
 
 const validateProduct = [
+  body("productId").optional().isString().withMessage("productId is required"),
   body("productName").notEmpty().withMessage("Name is required"),
   body("category").notEmpty().withMessage("category is required"),
   body("subCategory").notEmpty().withMessage("subCategory is required"),

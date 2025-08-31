@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 const ProductSchema = new mongoose.Schema(
   {
+    productId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     productName: { type: String, required: true },
     // category: {
     //   type: mongoose.Schema.Types.ObjectId,
@@ -20,7 +25,7 @@ const ProductSchema = new mongoose.Schema(
       type: String,
     },
 
-    unit: { type: String, enum: ["set", "each","meter"], required: true },
+    unit: { type: String, enum: ["set", "each", "meter"], required: true },
     sellingPrice: { type: Number, required: true },
     description: { type: String },
     // quantity: { type: Number, default: 0 },
