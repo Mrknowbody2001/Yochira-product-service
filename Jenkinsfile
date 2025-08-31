@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Mrknowbody2001/Yochira-product-service.git'
+                git branch: 'master', url: 'https://github.com/Mrknowbody2001/Yochira-product-service.git'
             }
         }
 
