@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-           PATH = "/usr/bin:$PATH"  // Add docker-compose directory to PATH
+        // Use PATH+EXTRA to append directories in declarative pipeline
+        PATH+DOCKER = "/usr/bin"
     }
 
     stages {
