@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PATH = "/usr/bin:$PATH"   // prepend docker-compose path
+        PATH = "/usr/bin:$PATH"   
     }
 
     stages {
