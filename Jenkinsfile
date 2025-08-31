@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     environment {
-        // Use the directory, not the binary itself
-        PATH = "/usr/local/bin:$PATH"
+        PATH = "/usr/bin:$PATH"  // Add docker-compose directory to PATH
     }
 
     stages {
@@ -17,7 +16,7 @@ pipeline {
         stage('Check PATH') {
             steps {
                 sh 'echo $PATH'
-                sh 'which docker-compose'
+                sh 'which docker-compose'  // Should now output: /usr/bin/docker-compose
             }
         }
 
