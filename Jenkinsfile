@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PATH = "/usr/bin:$PATH"   
+        PATH = "/usr/bin:$PATH"   // Ensure docker-compose is in PATH
     }
 
     stages {
@@ -22,28 +22,14 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t chamithsandeepa2001/productservice:latest .'
-            }
-        }
-
-        stage('Login to Docker Hub') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                }
-            }
-        }
-
-        stage('Push to Docker Hub') {
-            steps {
-                sh 'docker push chamithsandeepa2001/productservice:latest'
+                sh 'docker build -t productservice:latest .'  // Build local image
             }
         }
 
         stage('Deploy to Server') {
             steps {
-                sh 'docker pull chamithsandeepa2001/productservice:latest'
-                sh 'docker-compose -f docker-compose.prod.yml up -d'
+                sh 'docker-compose -f docker-compose.prod.yml up -d --build'  
+                // --build ensures docker-compose uses the latest local image
             }
         }
 
