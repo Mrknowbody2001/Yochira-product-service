@@ -28,8 +28,8 @@ pipeline {
 
         stage('Deploy to Server') {
             steps {
-                sh 'docker-compose -f docker-compose.prod.yml up -d --build'  
-                // --build ensures docker-compose uses the latest local image
+                sh 'docker-compose -f docker-compose.prod.yml up -d'  
+                // Uses the locally built image, no rebuild
             }
         }
 
