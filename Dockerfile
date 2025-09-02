@@ -14,6 +14,8 @@ COPY . .
 # Use environment variables from .env file
 # (Docker won't automatically read .env, will be passed via docker-compose or manually)
 ENV NODE_ENV=production
+ENV PORT=5001
+ENV MONGO_URL=mongodb+srv://sandeepachamith53:rEhIducC2UVxJBGo@cluster1.ic6lyoe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1
 
 # Expose the port that your app uses
 EXPOSE 5001
