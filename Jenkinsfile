@@ -23,12 +23,15 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t productservice:latest .'  // Build local image
+
             }
         }
 
         stage('Deploy to Server') {
             steps {
-                sh 'docker-compose -f docker-compose.prod.yml up -d'  
+                // sh 'docker-compose -f docker-compose.prod.yml up -d' 
+                sh 'docker run -d -p 5001:5001 --name productservice_container productservice:latest'
+
                 // Uses the locally built image, no rebuild
             }
         }
