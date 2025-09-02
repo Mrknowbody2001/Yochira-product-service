@@ -30,7 +30,7 @@ pipeline {
         stage('Deploy to Server') {
             steps {
                 // sh 'docker-compose -f docker-compose.prod.yml up -d' 
-                sh 'docker run -d -p 5001:5001 --name productservice_container productservice:latest'
+                sh 'docker run -d -p 5001:5001  productservice:latest'
 
                 // Uses the locally built image, no rebuild
             }
